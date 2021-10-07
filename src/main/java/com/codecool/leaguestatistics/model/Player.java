@@ -27,6 +27,11 @@ public class Player {
         this.skillRate = skillRate;
     }
 
+    public Player(int skillRate, String name) {
+        this.name = name;
+        this.skillRate = skillRate;
+    }
+
     public Player() {
     }
 

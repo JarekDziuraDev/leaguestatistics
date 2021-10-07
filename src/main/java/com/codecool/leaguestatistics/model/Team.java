@@ -30,8 +30,8 @@ public class Team implements Comparable<Team> {
      * Helper method that finds best player with most scored goals in team
      */
     public Player getBestPlayer() {
-        Player bestPlayer = new Player(0);
-        bestPlayer.setName("");
+        Player bestPlayer = new Player(0, "John Wick");
+
         for (Player player : players) {
             if (player.getGoals() > bestPlayer.getGoals()) {
                 bestPlayer = player;

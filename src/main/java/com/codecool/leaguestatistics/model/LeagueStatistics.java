@@ -97,8 +97,13 @@ public class LeagueStatistics {
         //throw new RuntimeException("getPlayersWithAtLeastXGoals method not implemented");
         List<Player> playersWithGivenOrHigherGoals = new ArrayList<>();
         for (Team team : teams) {
-            
+            for (Player player : team.getPlayers()) {
+                if(player.getGoals() >= goals) {
+                    playersWithGivenOrHigherGoals.add(player);
+                }
+            }
         }
+        return playersWithGivenOrHigherGoals;
     }
 
     /**
@@ -106,7 +111,7 @@ public class LeagueStatistics {
      */
     public static Player getMostTalentedPlayerInDivision(List<Team> teams, Division division) {
         //throw new RuntimeException("getMostTalentedPlayerInDivision method not implemented");
-        Player bestPlayer = new Player(0);
+        Player bestPlayer = new Player(0, "John Wick");
         for (Team team : teams) {
             if(team.getDivision() == division) {
                 bestPlayer = team.getBestPlayer();
@@ -120,7 +125,41 @@ public class LeagueStatistics {
      * Returns the division with greatest amount of points.
      * If there is more than one division with the same amount current points, then check the amounts of wins.
      */
+
+    private static class DivWithScore {
+        public Division division;
+        public int score;
+        public int wins;
+        DivWithScore() {};
+
+        DivWithScore(Division division, int score, int wins) {
+            this.division = division;
+            this.score = score;
+            this.wins = wins;
+        }
+    }
     public static Division getStrongestDivision(List<Team> teams) {
-        throw new RuntimeException("getStrongestDivision method not implemented");
+        List<DivWithScore> divWithScores = new ArrayList<>();
+        DivWithScore strongestDivision = new DivWithScore();
+        for (Team team : teams) {
+            switch (team.getDivision()) {
+                case East: divWithScores.add(new DivWithScore(Division.East, team.getCurrentPoints(), team.getWins())); break;
+                case West: divWithScores.add(new DivWithScore(Division.West, team.getCurrentPoints(), team.getWins())); break;
+                case Central: divWithScores.add(new DivWithScore(Division.Central, team.getCurrentPoints(), team.getWins())); break;
+            }
+        }
+
+        for (DivWithScore divWithScore : divWithScores) {
+
+            if (divWithScore.score >= strongestDivision.score) {
+                if (divWithScore.score == strongestDivision.score) {
+                    if (divWithScore.wins > strongestDivision.wins) {
+                        strongestDivision = divWithScore;
+                    }
+                } else strongestDivision = divWithScore;
+            }
+
+        }
+        return strongestDivision.division;
     }
 }
