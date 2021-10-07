@@ -1,5 +1,6 @@
 package com.codecool.leaguestatistics.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,14 +12,22 @@ public class LeagueStatistics {
      * Gets all teams with highest points order, if points are equal next deciding parameter is sum of goals of the team.
      */
     public static List<Team> getAllTeamsSorted(List<Team> teams) {
-        throw new RuntimeException("getAllTeamsSorted method not implemented");
+
     }
 
     /**
      * Gets all players from each team in one collection.
      */
     public static List<Player> getAllPlayers(List<Team> teams) {
-        throw new RuntimeException("getAllPlayers method not implemented");
+        //throw new RuntimeException("getAllPlayers method not implemented");
+        List<Player> resultListPlayer = new ArrayList<>();
+
+        teams.forEach(team -> {
+            team.getPlayers().forEach(player -> {
+                resultListPlayer.add(player);
+            });
+        });
+        return resultListPlayer;
     }
 
     /**
@@ -65,7 +74,14 @@ public class LeagueStatistics {
      * Gets the player with the highest skill rate for given Division.
      */
     public static Player getMostTalentedPlayerInDivision(List<Team> teams, Division division) {
-        throw new RuntimeException("getMostTalentedPlayerInDivision method not implemented");
+        //throw new RuntimeException("getMostTalentedPlayerInDivision method not implemented");
+        Player bestPlayer = new Player(0);
+        for (Team team : teams) {
+            if(team.getDivision() == division) {
+                bestPlayer = team.getBestPlayer();
+            }
+        }
+        return bestPlayer;
     }
 
     /**
