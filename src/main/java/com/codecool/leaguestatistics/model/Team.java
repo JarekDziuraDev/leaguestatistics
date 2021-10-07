@@ -4,11 +4,12 @@ import com.codecool.leaguestatistics.factory.NamesGenerator;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents a team.
  */
-public class Team implements Comparable<Team> {
+public class Team implements Comparable<Team>{
 
     private String name;
     private Division division;
@@ -95,11 +96,36 @@ public class Team implements Comparable<Team> {
         this.players = players;
     }
 
+    public int goalsOfTheTeam() {
+        int returnGoals = 0;
+        for(Player player : players) {
+            returnGoals += player.getGoals();
+        }
+        return returnGoals;
+    }
 
     @Override
-    public int compareTo(Team o) {
-        if(this.getWins() < o.getWins()) return -1;
-        if(this.getWins() > o.getWins()) return 1;
-        else return 0;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Team team = (Team) o;
+        return Objects.equals(this.getCurrentPoints(), team.getCurrentPoints()) &&
+                Objects.equals(this.goalsOfTheTeam(), team.goalsOfTheTeam());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getCurrentPoints(), this.goalsOfTheTeam());
+    }
+
+    @Override
+    public int compareTo(Team team) {
+        if(this.getCurrentPoints() > team.getCurrentPoints()) return 1;
+        else if(this.getCurrentPoints() < team.getCurrentPoints()) return -1;
+        else {
+            if(this.goalsOfTheTeam() > team.goalsOfTheTeam()) return 1;
+            else if(this.goalsOfTheTeam() < team.goalsOfTheTeam()) return -1;
+            else return 0;
+        }
     }
 }
