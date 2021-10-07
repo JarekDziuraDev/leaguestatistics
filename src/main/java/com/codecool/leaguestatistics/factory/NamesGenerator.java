@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 public class NamesGenerator {
 
     public static String getPlayerName() {
-        return getRandomStringFromFile("PlayerNames.txt");
+        return getRandomStringFromFile("pn.txt");
     }
 
     public static String getTeamName() {

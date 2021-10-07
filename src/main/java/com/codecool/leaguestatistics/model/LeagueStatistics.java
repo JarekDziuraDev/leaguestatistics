@@ -1,6 +1,8 @@
 package com.codecool.leaguestatistics.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -12,7 +14,7 @@ public class LeagueStatistics {
      * Gets all teams with highest points order, if points are equal next deciding parameter is sum of goals of the team.
      */
     public static List<Team> getAllTeamsSorted(List<Team> teams) {
-
+        throw new RuntimeException("getAllPlayers method not implemented");
     }
 
     /**
@@ -34,7 +36,15 @@ public class LeagueStatistics {
      * Gets team with the longest name
      */
     public static Team getTeamWithTheLongestName(List<Team> teams) {
-        throw new RuntimeException("getTeamWithTheLongestName method not implemented");
+        //throw new RuntimeException("getTeamWithTheLongestName method not implemented");
+        Team teamWithTheLongestName = new Team();
+        teamWithTheLongestName.setName("");
+        for (Team team : teams) {
+            if(team.getName().length() > teamWithTheLongestName.getName().length()) {
+                teamWithTheLongestName = team;
+            }
+        }
+        return teamWithTheLongestName;
     }
 
     /**
@@ -45,13 +55,18 @@ public class LeagueStatistics {
      */
     public static List<Team> getTopTeamsWithLeastLoses(List<Team> teams, int teamsNumber) {
         throw new RuntimeException("getTopTeamsWithLeastLoses method not implemented");
+
     }
 
     /**
      * Gets a player with the biggest goals number from each team.
      */
     public static List<Player> getTopPlayersFromEachTeam(List<Team> teams) {
-        throw new RuntimeException("getTopPlayersFromEachTeam method not implemented");
+        List<Player> playersWithBiggestGoalsFromEachTeam = new ArrayList<>();
+        for(Team team: teams) {
+            playersWithBiggestGoalsFromEachTeam.add(team.getBestPlayer());
+        }
+        return playersWithBiggestGoalsFromEachTeam;
     }
 
     /**

@@ -2,12 +2,13 @@ package com.codecool.leaguestatistics.model;
 
 import com.codecool.leaguestatistics.factory.NamesGenerator;
 
+import java.util.Comparator;
 import java.util.List;
 
 /**
  * Represents a team.
  */
-public class Team {
+public class Team implements Comparable<Team> {
 
     private String name;
     private Division division;
@@ -30,6 +31,7 @@ public class Team {
      */
     public Player getBestPlayer() {
         Player bestPlayer = new Player(0);
+        bestPlayer.setName("");
         for (Player player : players) {
             if (player.getGoals() > bestPlayer.getGoals()) {
                 bestPlayer = player;
@@ -91,5 +93,13 @@ public class Team {
 
     public void setPlayers(List<Player> players) {
         this.players = players;
+    }
+
+
+    @Override
+    public int compareTo(Team o) {
+        if(this.getWins() < o.getWins()) return -1;
+        if(this.getWins() > o.getWins()) return 1;
+        else return 0;
     }
 }
