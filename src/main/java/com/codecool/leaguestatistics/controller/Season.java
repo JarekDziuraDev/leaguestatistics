@@ -1,6 +1,8 @@
 package com.codecool.leaguestatistics.controller;
 
+import com.codecool.leaguestatistics.Utils;
 import com.codecool.leaguestatistics.factory.LeagueFactory;
+import com.codecool.leaguestatistics.model.Player;
 import com.codecool.leaguestatistics.model.Team;
 
 import java.util.ArrayList;
@@ -40,7 +42,27 @@ public class Season {
      * Plays single game between two teams and displays result after.
      */
     private void playMatch(Team team1, Team team2) {
-        throw new RuntimeException("playMatch method not implemented");
+        int chanceTeamOneToGoal;
+        int chanceTeamTwoToGoal;
+        int resultTeamOne = 0;
+        int resultTeamTwo = 0;
+        for(int i = 0; i < 3; i++ ) {
+            chanceTeamOneToGoal = 0;
+            chanceTeamTwoToGoal = 0;
+
+            for(Player player: team1.getPlayers()) {
+                chanceTeamOneToGoal += player.getSkillRate() + Utils.getRandomValue(1,100);
+            }
+
+            for(Player player: team2.getPlayers()) {
+                chanceTeamTwoToGoal += player.getSkillRate() + Utils.getRandomValue(1,100);
+            }
+
+            if (chanceTeamOneToGoal > chanceTeamTwoToGoal) resultTeamOne++;
+            else if (chanceTeamOneToGoal < chanceTeamTwoToGoal) resultTeamTwo++;
+            else {resultTeamOne++; resultTeamTwo++;}
+        }
+
     }
 
     /**
@@ -49,6 +71,15 @@ public class Season {
      * @return All goals scored by the team in current game
      */
     private int getScoredGoals(Team team) {
-        throw new RuntimeException("getScoredGoals method not implemented");
+        //throw new RuntimeException("getScoredGoals method not implemented");
+        int chanceToGoal = Utils.getRandomValue(1,100);
+        int goals = 0;
+        for(Player player : team.getPlayers()) {
+            if (player.getSkillRate() > chanceToGoal) {
+                player.setGoals(player.getGoals() + 1);
+                goals++;
+            }
+        }
+        return goals;
     }
 }

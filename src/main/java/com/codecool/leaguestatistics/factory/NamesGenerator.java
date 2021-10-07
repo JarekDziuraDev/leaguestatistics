@@ -24,6 +24,7 @@ public class NamesGenerator {
     private static String getRandomStringFromFile(String fileName) {
         String str = "";
         ClassLoader classLoader = NamesGenerator.class.getClassLoader();
+
         try (Stream<String> stream = Files.lines(Paths.get(classLoader.getResource(fileName).getFile()), StandardCharsets.UTF_8)) {
             int lineCount = (int) stream.count();
             int randomNumber = Utils.getRandomValue(1, lineCount);

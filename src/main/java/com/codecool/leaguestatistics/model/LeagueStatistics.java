@@ -73,7 +73,19 @@ public class LeagueStatistics {
      * Gets all teams, where there are players with no scored goals.
      */
     public static List<Team> getTeamsWithPlayersWithoutGoals(List<Team> teams){
-        throw new RuntimeException("getTeamsWithPlayersWithoutGoals method not implemented");
+        List<Team> teamWithNoScoredGoalsPLayers = new ArrayList<>();
+        boolean noScoredGoals;
+
+        for (Team team : teams) {
+            noScoredGoals = true;
+            for (Player player : team.getPlayers()) {
+                if(player.getGoals() <= 0) {
+                    teamWithNoScoredGoalsPLayers.add(team);
+                    break;
+                }
+            }
+        }
+        return teamWithNoScoredGoalsPLayers;
     }
 
     /**
@@ -82,7 +94,11 @@ public class LeagueStatistics {
      * @return Collection of Players with given or higher number of goals scored.
      */
     public static List<Player> getPlayersWithAtLeastXGoals(List<Team> teams, int goals) {
-        throw new RuntimeException("getPlayersWithAtLeastXGoals method not implemented");
+        //throw new RuntimeException("getPlayersWithAtLeastXGoals method not implemented");
+        List<Player> playersWithGivenOrHigherGoals = new ArrayList<>();
+        for (Team team : teams) {
+            
+        }
     }
 
     /**
